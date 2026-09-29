@@ -189,26 +189,37 @@ If you want to check a single column's definition without opening the DDL, this 
 ```
 FinCore/
 ├── README.md                        ← you are here
+│
 ├── schema/
 │   └── create_tables.sql            DDL v2 — 9 tables, 35 named constraints,
 │                                    3 secondary indexes; idempotent (re-runnable)
+│
 ├── docs/
 │   ├── DATABASE_DESIGN.md           the main write-up: goals, relationships,
 │   │                                decisions D1–D6 with rejected alternatives,
 │   │                                normalization summary, verification story
+│   │
 │   ├── NORMALIZATION.md             the full working: 1NF → 2NF → 3NF → BCNF
 │   │                                progression, FD-by-FD proof for all 9
 │   │                                relations, 4NF/5NF, documented deviations
+│   │
 │   └── DATA_DICTIONARY.md           all 57 columns + design notes + the FK /
 │                                    CHECK / UNIQUE / index / ENUM catalogs
-└── diagrams/
-    ├── architecture_diagram.png     5-layer system & database architecture (§4.1)
-    ├── er_diagram_chen.png          ER in Chen's notation — conceptual view (§4.2)
-    ├── er_diagram.png               simplified ER — names + PK/FK badges (§4.3)
-    ├── table_relationships.png      the map at the top — 9 tables, 10 links (§4.4)
-    ├── relational_schema.png        logical schema, columns + types + FK arrows (§4.5)
-    └── relational_schema_detailed.png  column-level: defaults, ENUMs, CHECKs,
-                                        indexes, ON DELETE chips (§4.6)
+│
+├── diagrams/
+│   ├── architecture_diagram.png     5-layer system & database architecture (§4.1)
+│   ├── er_diagram_chen.png          ER in Chen's notation — conceptual view (§4.2)
+│   ├── er_diagram.png               simplified ER — names + PK/FK badges (§4.3)
+│   ├── table_relationships.png      the map at the top — 9 tables, 10 links (§4.4)
+│   ├── relational_schema.png        logical schema, columns + types + FK arrows (§4.5)
+│   └── relational_schema_detailed.png
+│                                    column-level: defaults, ENUMs, CHECKs,
+│                                    indexes, ON DELETE chips (§4.6)
+│
+└── queries/
+    
+
+
 ```
 
 The three docs cross-reference each other instead of repeating themselves: the design doc holds the *reasoning*, the dictionary holds the *column-level facts*, the normalization doc holds the *proof* — and the DDL is what all three are checked against. If the DDL ever changes, the docs and diagrams are regenerated with it (the sync contract in [§14](#14--how-the-design-was-verified)).
@@ -522,11 +533,15 @@ We didn't leave checking to the end — these are the checks that were actually 
 
 | Member | Role | Artifacts in this repository |
 |---|---|---|
-| **Aryan Rao** (AU25UG-006) | Database design, normalization, DDL, documentation, verification | `schema/create_tables.sql`, all `docs/`, all diagrams, this README |
-| **Amruta Nagavi** | Design review | the cross-check pass that produced DDL v2 ([§14](#14--how-the-design-was-verified)) |
-| **Siva** | Database implementation | bringing the DDL up on MySQL, verification runs |
-| **Jashan** | SQL queries | the business query set (§13 shows the schema's side of it) |
-| **Harsita** | Seed data | the demo dataset (in progress) |
+
+| **Aryan Rao (AU25UG-006)** | SQL Queries **8, 9 & 10**, ER Diagram, Normalization, Database Design, Constraints |
+| **Amruta Nagavi** | SQL Query **5**, Verification, Report, README documentation |
+| **Siva** | SQL Query **4**, Database Creation and implementation |
+| **Harsita** | SQL Query **3**, Sample Data preparation |
+| **Thammiksha** | SQL Queries **2 & 7**, README documentation, Report preparation, **10 Test Cases** |
+| **Jashan** | SQL Queries **1 & 6**, GitHub Repository management, README documentation, **10 Test Cases** |
+
+
 
 *Note from Aryan:* the schema and every document in `docs/` are my work, and the mistakes v1 contained were mine too — which is why the v2 corrections are written down where they happened instead of being quietly patched. Amruta's review pass is what caught them; that's exactly what review is for.
 
